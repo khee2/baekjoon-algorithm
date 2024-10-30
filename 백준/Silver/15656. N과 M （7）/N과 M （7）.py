@@ -1,14 +1,15 @@
 n, m = map(int, input().split())
-nums = sorted(list(map(int, input().split())))
-temp = []
+numbers = list(map(int, input().split())) 
+numbers.sort()
 
+s=[]
 def dfs():
-    if len(temp) == m:
-        print(*temp)
+    if len(s)==m:
+        print(' '.join(map(str,s)))
         return
-    for i in range(n):
-            temp.append(nums[i])
-            dfs()
-            temp.pop()
-
+    
+    for i in range(1, n+1):
+        s.append(numbers[i-1])
+        dfs()
+        s.pop()
 dfs()
