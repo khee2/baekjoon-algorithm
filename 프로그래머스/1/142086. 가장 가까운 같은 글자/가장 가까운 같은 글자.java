@@ -1,26 +1,22 @@
+import java.util.Map;
+import java.util.HashMap;
+
 class Solution {
     public int[] solution(String s) {
         int[] answer = new int[s.length()];
-        
-        // 마지막으로 등장한 문자 위치 기록
-        int[] lastSeen = new int[26]; 
-        
-        java.util.Arrays.fill(lastSeen, -1);
+        Map<Character, Integer> map = new HashMap<>();
         
         for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            int charIndex = c - 'a'; 
-            
-            if (lastSeen[charIndex] == -1) {
+            if (!map.containsKey(s.charAt(i))){ 
+                // 앞에 나온 문자가 아니라면 -1 저장
                 answer[i] = -1;
             } else {
-                answer[i] = i - lastSeen[charIndex];
+                // 앞에 나온 문자라면 i-이전문자인덱스 를 저장
+                answer[i] = i - map.get(s.charAt(i));
             }
-            
-            // 해당 문자 마지막 위치 갱신
-            lastSeen[charIndex] = i;
+            // 자신과 가까운 동일 문자를 찾아야 하므로, 모든 값을 저장 
+            map.put(s.charAt(i), i);
         }
-        
         return answer;
     }
 }
