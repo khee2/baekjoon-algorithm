@@ -1,33 +1,25 @@
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Stack;
+import java.util.List;
 
 class Solution {
     public int[] solution(int[] numbers) {
-        int start = 0;
-         int end = 1;
-
-         Stack<Integer> stack = new Stack<Integer>();
-         for(int i=0; i<times(numbers.length); i++){
-             if(start == numbers.length-2) break;
-             if(end == numbers.length){
-                 ++start;
-                 end=start+1;
-             }
-             int num = numbers[start]+numbers[end++];
-             if(!stack.contains(num)){
-                 stack.push(num);
-             }
-         }
-
-         int[] answer = new int[stack.size()];
-         for(int j=stack.size()-1; j>=0; j--){
-             answer[j] = stack.pop();
-         }
+        List<Integer> list = new ArrayList<Integer>();
+        for (int i=0 ; i < numbers.length; i++){
+            for (int j=i+1 ; j < numbers.length; j++){
+                int s = numbers[i]+numbers[j];
+                if (list.indexOf(s) < 0){ // 두 수의 합이 존재하지 않는다면
+                    list.add(s);
+                }
+            }
+        }
+        // list를 배열로 변환
+        int[] answer = new int[list.size()];
+        for (int i=0 ; i< list.size(); i++){
+            answer[i] = list.get(i);
+        }
         Arrays.sort(answer);
-         return answer;
+        
+        return answer;
     }
-    
-    int times(int numLength){
-         return (numLength*(numLength-1))/2;
-     }
 }
