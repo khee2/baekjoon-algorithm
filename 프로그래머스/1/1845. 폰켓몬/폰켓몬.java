@@ -2,19 +2,15 @@ import java.util.*;
 
 class Solution {
     public int solution(int[] nums) {
-        int answer = 0;
-
         Set<Integer> set = new HashSet<>();
         for (int num : nums) {
             set.add(num);
         }
         
-        if((nums.length)/2 <= set.size()){
-            answer = nums.length/2;
-        }
-        else {
-            answer = set.size();
-        }
-        return answer;
+        int type = set.size(); // 폰켓몬 종류
+        int select = nums.length / 2; // 골라야 하는 폰켓몬 수
+        
+        if(select <= type) return select;
+        else return type;
     }
 }
