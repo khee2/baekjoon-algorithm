@@ -1,17 +1,23 @@
-import java.util.*;
+import java.util.HashSet;
 
 class Solution {
     public boolean solution(String[] phone_book) {
-        // 전화번호를 사전순으로 정렬
-        Arrays.sort(phone_book);
-
-        for (int i = 0; i < phone_book.length - 1; i++) {
-            // 현재 번호가 다른 번호의 접두어인 경우 false 반환
-            if (phone_book[i + 1].startsWith(phone_book[i])) {
-                return false; 
+        HashSet<String> set = new HashSet<>();
+        
+        for (String phone : phone_book) {
+            set.add(phone);
+        }
+        
+        // 각 전화번호의 접두사가 HashSet에 있는지 확인
+        for (String phone : phone_book) {
+            for (int i = 1; i < phone.length(); i++) {
+                String prefix = phone.substring(0, i); // 접두사 생성
+                if (set.contains(prefix)) {
+                    return false; // 접두사가 발견되면 false 반환
+                }
             }
         }
         
-        return true; // 접두사 관계가 없는 경우 true 반환
+        return true; // 접두사가 없으면 true 반환
     }
 }
