@@ -1,20 +1,26 @@
 import java.util.Arrays;
-import java.util.Comparator;
 
 class Solution {
     public String solution(int[] numbers) {
-        String[] strNumbers = Arrays.stream(numbers)
-                                    .mapToObj(String::valueOf)
-                                    .toArray(String[]::new);
-
+        String[] nums = new String[numbers.length];
+        for (int i = 0; i < nums.length; i++) {
+            nums[i] = numbers[i] + "";
+        }
+        
         // 두 수를 앞뒤로 붙였을 때 더 큰 순서대로 정렬
-        Arrays.sort(strNumbers, (a, b) -> (b + a).compareTo(a + b));
+        Arrays.sort(nums, (a, b) -> (b + a).compareTo(a + b));
 
         // "0"이 여러 개 있는 경우 "0"만 리턴
-        if (strNumbers[0].equals("0")) {
+        if (nums[0].equals("0")) {
             return "0";
         }
 
-        return String.join("", strNumbers);
+        // 문자열을 이어붙이기
+        StringBuilder result = new StringBuilder();
+        for (String num : nums) {
+            result.append(num);
+        }
+
+        return result.toString();
     }
 }
