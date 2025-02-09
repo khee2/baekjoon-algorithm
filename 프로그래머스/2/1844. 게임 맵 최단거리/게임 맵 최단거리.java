@@ -1,5 +1,4 @@
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 class Solution {
     public int solution(int[][] maps) {
@@ -15,7 +14,7 @@ class Solution {
             int y = current[1];
             int dist = current[2];
             
-            // 상대 있는 곳에 도달했다면 거리 반환https://school.programmers.co.kr/learn/courses/30/lessons/1844#
+            // 상대 있는 곳에 도달했다면 거리 반환
             if (x == n-1 && y == m-1) return dist;
             
             // 네 방향 탐색
