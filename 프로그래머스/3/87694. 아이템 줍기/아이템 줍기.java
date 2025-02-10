@@ -24,15 +24,16 @@ class Solution {
 
         // 주어진 사각형 좌표를 처리
         for (int i = 0; i < rectangle.length; i++) {
+            // 사각형 좌표를 2배 크기로 변환
             int sx = rectangle[i][0] * 2;
             int sy = rectangle[i][1] * 2;
             int ex = rectangle[i][2] * 2;
             int ey = rectangle[i][3] * 2;
 
-            // 테두리 채우기
+            // 테두리 -1로 채우기
             for (int y = sy; y <= ey; y++) {
                 for (int x = sx; x <= ex; x++) {
-                    map[y][x] = -1;
+                    map[y][x] = -1; // x는 열, y는 행
                 }
             }
 
@@ -55,7 +56,7 @@ class Solution {
             int py = p[1];
             int move = p[2];
 
-            // 아이템에 도달하면
+            // 아이템에 도달하면 거리 반환 (2배 크기라서 move/2)
             if (px == tx && py == ty) {
                 return move / 2;
             }
@@ -65,14 +66,14 @@ class Solution {
                 int nx = px + dx[i];
                 int ny = py + dy[i];
 
-                // 테두리이고, 바운더리 안에 있는지 확인
+                // 이동할 곳이 테두리이고, 바운더리 안에 있는지 확인
                 if (map[ny][nx] < 0 && isBoundary(nx, ny)) {
                     map[ny][nx] = move + 1;
                     q.add(new int[]{nx, ny, move + 1});
                 }
             }
         }
-        return -1;
+        return -1; 
     }
 
     static boolean isBoundary(int x, int y) {
