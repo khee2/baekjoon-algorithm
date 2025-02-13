@@ -53,8 +53,9 @@ class Solution {
         
         while (!q.isEmpty()) {
             int[] pos = q.poll();
-            shape.add(new int[]{pos[0] - x, pos[1] - y}); // 기준점 (0,0)으로 변환
+            shape.add(new int[]{pos[0], pos[1]}); // 블록 좌표 저장
             
+            // 네 방향으로 이동했을 때 경계값 확인, 방문 안 했으면서 target과 일치하는지 확인
             for (int d = 0; d < 4; d++) {
                 int nx = pos[0] + dx[d], ny = pos[1] + dy[d];
                 if (nx >= 0 && ny >= 0 && nx < board.length && ny < board.length && 
@@ -64,7 +65,7 @@ class Solution {
                 }
             }
         }
-        return normalize(shape);
+        return normalize(shape); // 정규화
     }
 
     // 퍼즐 조각이 빈 공간에 맞는지 확인
@@ -90,6 +91,7 @@ class Solution {
 
     // 좌표를 정규화하여 0,0 기준으로 변환
     private List<int[]> normalize(List<int[]> piece) {
+        
         int minX = Integer.MAX_VALUE, minY = Integer.MAX_VALUE;
         for (int[] p : piece) {
             minX = Math.min(minX, p[0]);
@@ -104,6 +106,7 @@ class Solution {
 
         // 정렬하여 형태를 일정하게 유지
         normalized.sort((a, b) -> a[0] == b[0] ? a[1] - b[1] : a[0] - b[0]);
+        
         return normalized;
     }
 
